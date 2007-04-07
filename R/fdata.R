@@ -3,8 +3,8 @@
 #         ************************************************************
 #   Description : 
 #       Functional Data class and methods.
-#   Version : 2.0
-#   Date : 2003-06-02
+#   Version : 2.0.1
+#   Date : 2007-04-07
 #         ************************************************************
 #   Author : Julien Damon <julien.damon@free.fr>
 #   License : LGPL
@@ -441,19 +441,19 @@ maxfdata <- function(data)
 #         ************************************************************
 #   Description : 
 #       Give the list of valid date
-#   Version : 1.0
-#   Date : 2001-07-06
+#   Version : 1.1
+#   Date : 2007-04-07
 #  *****************************************************************************
-is.na.fdata <- function(data)
+is.na.fdata <- function(x)
 {
-    n <- length(data)
-    res <- matrix(1,ncol=ncol(data[[1]]),nrow=n)
+    n <- length(x)
+    res <- matrix(1,ncol=ncol(x[[1]]),nrow=n)
     for (i in 1:n)
     {
-        res[i,] <- c(apply(!is.na(data[[i]]),2,all))
+        res[i,] <- c(apply(!is.na(x[[i]]),2,all))
     }
-    colnames(res)<-colnames(data[[1]])
-    rownames(res)<-names(data)
+    colnames(res)<-colnames(x[[1]])
+    rownames(res)<-names(x)
     return(res==0)
 }
 

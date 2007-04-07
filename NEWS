@@ -1,4 +1,7 @@
 
+  2005-01-12 Version 0.6-1
+    *  Modification of is.na.fdata in order to be conform to R 2.5.0
+
   2005-01-12 Version 0.6-0
     *  Utilization of Namespace mechanism (introducted in R 1.7.0).
     *  A new argument in the 'plot.fdata' function has been added

@@ -1,6 +1,6 @@
 Package: far
-Version: 0.6-0
-Date: 2005-01-12
+Version: 0.6-1
+Date: 2007-04-07
 Title: Modelization for Functional AutoRegressive processes
 Author: Damon Julien <julien.damon@free.fr>
    Guillas Serge <guillas@uchicago.edu>
@@ -13,4 +13,4 @@ Description: Modelizations and previsions functions for
    a subspace, ...
 License: LGPL version 2.1 <http://www.gnu.org/copyleft/lesser.html>
 URL: http://julien.damon.free.fr/far.php
-Packaged: Thu Jan 13 21:22:02 2005; jdamon
+Packaged: Sat Apr  7 19:04:52 2007; jdamon

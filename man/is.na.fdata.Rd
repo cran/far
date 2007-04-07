@@ -8,16 +8,16 @@
   are preserved.
 }
 \usage{
-is.na.fdata(data)
+is.na.fdata(x)
 }
 \arguments{
-  \item{data}{ A \code{fdata} object }
+  \item{x}{ A \code{fdata} object }
 }
 \details{
   An observation is considered as NA if any of its values is NA.
 }
 \value{
-  A matrix of Logical values giving as rows the variables of \code{data}
+  A matrix of Logical values giving as rows the variables of \code{x}
   and as columns the observation.
 }
 \author{ J. Damon }
