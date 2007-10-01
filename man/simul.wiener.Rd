@@ -1,6 +1,7 @@
 \name{simul.wiener}
 \alias{simul.wiener}
 \title{ Wiener process simulation }
+\encoding{utf-8}
 \description{
   Simulation of Wiener processes.
 }
@@ -10,11 +11,11 @@ simul.wiener(m=64, n=1, m2=NULL)
 \arguments{
   \item{m}{ Integer. Number of discretization points. }
   \item{n}{ Integer. Number of observations. }
-  \item{m2}{ Integer. Length of the Karhunen-Loève expansion (2\code{m}
+  \item{m2}{ Integer. Length of the Karhunen-LoÃ¨ve expansion (2\code{m}
     by default). }
 }
 \details{
-  This function use the known Karhunen-Loève expansion of Wiener
+  This function use the known Karhunen-LoÃ¨ve expansion of Wiener
   processes to simulate observations of such a process.
 
   The option \code{m2} is internally used to set the length of the
@@ -27,8 +28,8 @@ simul.wiener(m=64, n=1, m2=NULL)
   process of length \code{n} with \code{m} discretization points.
 }
 \author{ J. Damon }
-\references{ Pumo, B. (1992). \emph{Estimation et Prévision de Processus 
-    Autoregressifs Fonctionnels. Applications aux Processus à Temps Continu.}
+\references{ Pumo, B. (1992). \emph{Estimation et PrÃ©vision de Processus
+    Autoregressifs Fonctionnels. Applications aux Processus Ã  Temps Continu.}
     PhD Thesis, University Paris 6, Pierre et Marie Curie. }
 \seealso{ \code{\link{simul.far.sde}}, \code{\link{simul.far.wiener}},
 \code{\link{simul.farx}}, \code{\link{simul.far}}.  }

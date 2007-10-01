@@ -1,10 +1,10 @@
 #  *****************************************************************************
 #   File : far.R
 #         ************************************************************
-#   Description : 
+#   Description :
 #       Functional Autoregressive functions and methods
-#   Version : 2.1
-#   Date : 2005-01-10
+#   Version : 2.2
+#   Date : 2007-10-01
 #         ************************************************************
 #   Author : Julien Damon <julien.damon@free.fr>
 #   License : LGPL
@@ -14,7 +14,7 @@
 #  *****************************************************************************
 #   Title : far
 #         ************************************************************
-#   Description : 
+#   Description :
 #       Modelization of Vectorized Functional Processes
 #   Version : 2.1
 #   Date : 2005-01-10
@@ -25,14 +25,14 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         && (class((data)) != "fdata")) # test the type of data
         stop("data is not of class fdata")
     call <- match.call()
-    
+
     # find dimensions
     n <- ncol(data[[1]])
 
     # find variables
     if (missing(y))
     {
-        if (missing(x)) 
+        if (missing(x))
         {
             x <- NULL
             y <- names(data)
@@ -49,7 +49,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
     nx <- length(x)
     ny <- length(y)
     r <- nx+ny
-    
+
     if (joined) # if joined estimation
     {
         if (missing(kn)) kn <- r
@@ -71,7 +71,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
     if (nx>0) for (i in 1:length(x))
         data.adapt[[x[i]]] <- (data[[x[i]]])[,-1,drop=FALSE]
     class(data.adapt) <- "fdata"
-     
+
     # Removing of non available data if required
     if (na.rm) {
         listobs <- c(apply(!is.na(data.adapt),2,all))
@@ -80,10 +80,10 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         listobs <- rep(TRUE,n)
         listobs2 <- c(FALSE,rep(TRUE,n-1),FALSE)
     }
-    
+
     nbobs <- sum(listobs == TRUE)
     nbobs2 <- sum(listobs2 == TRUE)
-    
+
     # centering
     if (center) {
         f1 <- function(x,listobs) matrix(apply(x[,listobs],1,mean),ncol=1)
@@ -91,7 +91,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         class(databar)<-"fdata"
         data <- list()
         for (i in 1:length(variables))
-            data[[variables[i]]] <- 
+            data[[variables[i]]] <-
                 sweep(data.adapt[[variables[i]]],1,databar[[variables[i]]],"-")
         class(data) <- "fdata"
     } else {
@@ -101,14 +101,14 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
 
     # Begining of the estimation
     # --------------------------
-    
+
     if (joined)
     {
         eigenvector <- list()
         eigenvalues <- list()
         length(eigenvector) <- 1
         length(eigenvalues) <- 1
-        
+
         # Calculation of the subspaces obtained from the covariance matrix
         nrowdata <- c(0,cumsum(unlist(lapply(data,nrow))))
         datacent <- matrix(0,nrow=nrowdata[r+1],ncol=nbobs)
@@ -118,7 +118,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         sdbase <- eigen(datacent %*% t(datacent / nbobs))
         eigenvector[[1]] <- sdbase$vectors[, 1:kn,drop=FALSE]
         eigenvalues[[1]] <- as.matrix(sdbase$values/nrowdata[r+1])
-        
+
         # Determination of the projection matrix
         datacent <- matrix(0,nrow=nrowdata[r+1],ncol=n)
         for (i in 1:r)
@@ -131,7 +131,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         length(eigenvector) <- r
         length(eigenvalues) <- r
         length(Projdata) <- r
-        
+
         # Calculation of the subspaces obtained from the covariance matrix
         for (i in 1:r)
         {
@@ -147,14 +147,14 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
         for (k in 1:r)
             Proj[sum(kkn[1:k])+(1:kkn[k+1]),] <- Projdata[[k]]
     }
-    
+
     # Calculation of the correlation matrix rho
         Delta <- Proj[,listobs2[-(n+1)],drop=FALSE] %*%
                     t(Proj[,listobs2[-1],drop=FALSE])
         InvG <- invgen(Proj[,listobs,drop=FALSE] %*%
                     t(Proj[,listobs,drop=FALSE]))
         rho <- Delta %*% InvG * nbobs / nbobs2
-    
+
     # result
     output <- list(
         call = call,
@@ -175,7 +175,7 @@ far <- function(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
 #  *****************************************************************************
 #   Title : print.far
 #         ************************************************************
-#   Description : 
+#   Description :
 #       print method for the 'far' model
 #   Version : 1.0
 #   Date : 2001-03-27
@@ -186,18 +186,18 @@ print.far<-function(x, ..., digits = max(3, getOption("digits") - 3),
     variables <- c(x$y,x$x)
     cat("Functional Autoregressive Model\n",file=file,append=append)
     cat("Call: ", deparse(x$call), "\n\n",file=file,append=append)
-    
+
     if (x$joined)
     {
         cat("Joined variable\n",file=file,append=append)
-        cat("Dimension of the subspace: ", format(x$kn, digits = digits), 
+        cat("Dimension of the subspace: ", format(x$kn, digits = digits),
         "\n",file=file,append=append)
         var.explained <- (x$values[[1]])^2
         cat("Explained Variance: ", format(sum(var.explained[1:x$kn[1]])/
-                                           sum(var.explained)*100, 
+                                           sum(var.explained)*100,
             digits = digits), "%\n",file=file,append=append)
-        cat("Estimated first Eigen values of the Covariance: ", 
-            format((x$values[[1]])[1:x$kn], digits = digits), 
+        cat("Estimated first Eigen values of the Covariance: ",
+            format((x$values[[1]])[1:x$kn], digits = digits),
             "\n\n",file=file,append=append)
     } else {
         # printed for each variable
@@ -208,14 +208,14 @@ print.far<-function(x, ..., digits = max(3, getOption("digits") - 3),
                  digits = digits), "\n",file=file,append=append)
             var.explained <- (x$values[[i]])^2
             cat("Explained Variance: ", format(sum(var.explained[1:x$kn[i]])/
-                                               sum(var.explained)*100, 
+                                               sum(var.explained)*100,
                 digits = digits), "%\n",file=file,append=append)
-            cat("Estimated first Eigen values of the Covariance: ", 
-                format((x$values[[i]])[1:x$kn[i]], digits = digits), 
+            cat("Estimated first Eigen values of the Covariance: ",
+                format((x$values[[i]])[1:x$kn[i]], digits = digits),
                 "\n\n",file=file,append=append)
         }
     }
-    
+
     cat("Estimated correlation Matrix in adequate subspace: \n",
         file=file,append=append)
     if (file=="")
@@ -230,12 +230,12 @@ print.far<-function(x, ..., digits = max(3, getOption("digits") - 3),
 #  *****************************************************************************
 #   Title : coef.far
 #         ************************************************************
-#   Description : 
+#   Description :
 #       coef method for the 'far' model
 #   Version : 1.1
 #   Date : 2003-06-11
 #  *****************************************************************************
-coef.far<-function (object, ...) 
+coef.far<-function (object, ...)
 {
     return(object$rho)
 }
@@ -243,7 +243,7 @@ coef.far<-function (object, ...)
 #  *****************************************************************************
 #   Title : plot.far
 #         ************************************************************
-#   Description : 
+#   Description :
 #       plot method for the 'far' model
 #   Version : 2.0
 #   Date : 2001-07-06
@@ -261,7 +261,7 @@ plot.far <- function(x,...)
         range.plot <- (par()$usr[c(1,4)])
         legend(x=range.plot[1],y=range.plot[2],
                 legend=paste("v",1:kn[1]),lty=1:kn[1],col=1:kn[1])
-        
+
     } else {
         for (i in 1:n)
         {
@@ -278,7 +278,7 @@ plot.far <- function(x,...)
 #  *****************************************************************************
 #   Title : predict.far
 #         ************************************************************
-#   Description : 
+#   Description :
 #       Computation of prediction for the class model "far"
 #   Version : 2.0
 #   Date : 2001-07-09
@@ -292,13 +292,13 @@ predict.far<-function(object, ..., newdata = NULL, label, na.rm=TRUE,
     if ( (!is.null(class(newdata)))
         && (class((newdata)) != "fdata")) # test the type of data
         stop("newdata is not of class fdata")
-    
+
     x <- object$x
     y <- object$y
     nx <- length(x)
     ny <- length(y)
     r <- nx+ny
-    
+
     n <- ncol(newdata[[object$y[1]]])
     if (nx>0) # if there is auxiliary variables
     {
@@ -347,10 +347,10 @@ predict.far<-function(object, ..., newdata = NULL, label, na.rm=TRUE,
         listobs <- rep(TRUE,n)
     }
     nbobs <- sum(listobs==TRUE)
-    
+
     if (object$joined)
     {
-        nrowdata <- c(0,cumsum(unlist(lapply(data,nrow))))        
+        nrowdata <- c(0,cumsum(unlist(lapply(data,nrow))))
         datacent <- matrix(0,ncol=nbobs,nrow=nrowdata[r+1])
         for (k in (1:r)) {
             datacent[(nrowdata[k]+1):nrowdata[k+1],] <-
@@ -367,7 +367,7 @@ predict.far<-function(object, ..., newdata = NULL, label, na.rm=TRUE,
         datacent <- matrix(0,ncol=nbobs,nrow=sum(kn))
         kkn <- c(0,kn)
         for (k in (1:r)) {
-            datacent[sum(kkn[1:k])+(1:kkn[k+1]),] <- 
+            datacent[sum(kkn[1:k])+(1:kkn[k+1]),] <-
                     t(object$v[[k]]) %*% ((data[[k]])[,listobs,drop=FALSE])
         }
         pred <- list()
@@ -386,7 +386,7 @@ predict.far<-function(object, ..., newdata = NULL, label, na.rm=TRUE,
         rownames(pred[[i]]) <- rownames(data[[i]])
         colnames(pred[[i]]) <- label[listobs]
     }
-    
+
     names(pred) <- object$y
     class(pred) <- "fdata"
     return(pred)
@@ -395,10 +395,10 @@ predict.far<-function(object, ..., newdata = NULL, label, na.rm=TRUE,
 #  *****************************************************************************
 #   Title : far.cv
 #         ************************************************************
-#   Description : 
+#   Description :
 #       Croos validation for the Model of Vectorized Functional Processes
-#   Version : 1.1
-#   Date : 2005-01-10
+#   Version : 1.2
+#   Date : 2007-10-01
 #  *****************************************************************************
 far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                    joined=FALSE)
@@ -406,16 +406,16 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
     if (class(data) != "fdata") # test the type of data
         stop("data is not of class fdata")
     call <- match.call()
-    
+
     # find dimensions
     n <- ncol(data[[1]])
     if (missing(ncv)) ncv <- round(n/5)
     n1 <- (n-ncv)
-    
+
     # find variables
     if (missing(y))
     {
-        if (missing(x)) 
+        if (missing(x))
         {
             x <- NULL
             y <- names(data)
@@ -439,7 +439,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
     r <- nx+ny
     dim1 <- unlist(lapply(data,nrow))
     dim1 <- dim1[variables]
-    
+
     if (joined) # if joined estimation
     {
         if (missing(kn)) kn <- sum(dim1)
@@ -453,7 +453,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
     # adapt data to the model chosen
     data.apprent <- list()
     data.test <- list()
-    if (nx>0) 
+    if (nx>0)
     {
         n1 <- n1-1
     }
@@ -469,7 +469,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
     }
     class(data.apprent) <- "fdata"
     class(data.test) <- "fdata"
-     
+
     # Removing non available data if required
     if (na.rm) {
         listobs <- c(apply(!is.na(data.apprent),2,all))
@@ -480,25 +480,25 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
         listobs2 <- c(FALSE,rep(TRUE,n1-1),FALSE)
         listobs.test <- rep(TRUE,ncv)
     }
-    
+
     nbobs <- sum(listobs == TRUE)
     nbobs2 <- sum(listobs2 == TRUE)
     nbobs.test <- sum(listobs.test == TRUE)
-    
+
     # centering
     if (center) {
-        f1 <- function(x,listobs) matrix(apply(x[,listobs],1,mean),ncol=1)
-        databar <- lapply(data.apprent,f1,listobs)
+        f0 <- function(x,listobs) matrix(apply(x[,listobs],1,mean),ncol=1)
+        databar <- lapply(data.apprent,f0,listobs)
         class(databar)<-"fdata"
         data <- list()
         for (i in 1:length(variables))
-            data[[variables[i]]] <- 
+            data[[variables[i]]] <-
                 sweep(data.apprent[[variables[i]]],1,
                       databar[[variables[i]]],"-")
         class(data) <- "fdata"
         data2 <- list()
         for (i in 1:length(variables))
-            data2[[variables[i]]] <- 
+            data2[[variables[i]]] <-
                 sweep(data.test[[variables[i]]],1,
                       databar[[variables[i]]],"-")
         class(data2) <- "fdata"
@@ -510,14 +510,14 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
 
     # Begining the estimation
     # -----------------------
-    
+
     if (joined)
     {
         eigenvector <- list()
         eigenvalues <- list()
         length(eigenvector) <- 1
         length(eigenvalues) <- 1
-        
+
         # Calculation of the subspaces obtained from the covariance matrix
         nrowdata <- c(0,cumsum(dim1))
         datacent <- matrix(0,nrow=nrowdata[r+1],ncol=nbobs)
@@ -527,7 +527,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
         sdbase <- eigen(datacent %*% t(datacent / nbobs))
         eigenvector[[1]] <- sdbase$vectors[, 1:kn,drop=FALSE]
         eigenvalues[[1]] <- as.matrix(sdbase$values/nrowdata[r+1])
-        
+
         # Determination of the projection matrix
         datacent <- matrix(0,nrow=nrowdata[r+1],ncol=n1)
         datacent2 <- matrix(0,nrow=nrowdata[r+1],ncol=nbobs.test)
@@ -546,7 +546,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
         length(eigenvalues) <- r
         length(Projdata) <- r
         length(Projdata2) <- r
-        
+
         # Calculation of the subspaces obtained from the covariance matrix
         for (i in 1:r)
         {
@@ -559,7 +559,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                               data2[[i]][,listobs.test,drop=FALSE]
         }
     }
-    
+
     # Begining of the cross validation
     # --------------------------------
     output <- matrix(0,ncol=length(kn)+6,nrow=prod(kn))
@@ -569,7 +569,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
     f4<-function(x) mean(abs(x),na.rm=TRUE)
     f5<-function(x) sqrt(mean(x^2,na.rm=TRUE))
     f6<-function(x) max(abs(x),na.rm=TRUE)
-    
+
     pk <- prod(kn)
     lk <- length(kn)
 
@@ -580,14 +580,14 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
             # projection
             Proj <- t(eigenvector[[1]][,1:k,drop=FALSE]) %*% datacent
             Proj2 <- t(eigenvector[[1]][,1:k,drop=FALSE]) %*% datacent2
-    
+
             # Calculation of the correlation matrix rho
             Delta <- Proj[,listobs2[-(n1+1)],drop=FALSE] %*%
                      t(Proj[,listobs2[-1],drop=FALSE])
             InvG <- invgen(Proj[,listobs,drop=FALSE] %*%
                            t(Proj[,listobs,drop=FALSE]))
             rho <- Delta %*% InvG * nbobs / nbobs2
-            
+
             # Prediction
             pred2 <- (eigenvector[[1]][,1:k,drop=FALSE]) %*% rho %*% Proj2
             pred <- list()
@@ -600,7 +600,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                 colnames(pred[[y[i]]]) <-
                    (colnames(data2[[y[i]]])[c(FALSE,listobs.test)])[-nbobs.test]
             }
-            
+
             # Calculation of errors
             for (i in 1:ncrit)
             {
@@ -611,7 +611,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                         colnames(pred[[cvcrit[i]]]),drop=FALSE]-
                         pred[[cvcrit[i]]])
             }
-            
+
             output[k,2] <- mean(unlist(lapply(pred,f1)))
             output[k,3] <- mean(unlist(lapply(pred,f2)))
             output[k,4] <- mean(unlist(lapply(pred,f3)))
@@ -620,18 +620,18 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
             output[k,7] <- mean(unlist(lapply(pred.max,f6)))
             output[k,1] <- k
         }
-        
+
 
     } else {
         kn2<-c(1,kn)
         for (i in 1:length(kn))
             output[,i]<-rep(rep(1:kn[i],rep(pk/prod(kn[1:i]),kn[i])),
                             prod(kn2[1:i]))
-        
+
         for (j in 1:pk)
         {
             kn <- output[j,1:lk]
-            
+
             # Determination of the projection matrix
             Proj <- matrix(0,ncol=n1,nrow=sum(kn))
             Proj2 <- matrix(0,ncol=nbobs.test,nrow=sum(kn))
@@ -643,7 +643,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                 Proj2[sum(kkn[1:k])+(1:kkn[k+1]),] <-
                     Projdata2[[k]][1:kn[k],,drop=FALSE]
             }
-            
+
             # Calculation of the correlation matrix rho
             Delta <- Proj[,listobs2[-(n1+1)],drop=FALSE] %*%
                      t(Proj[,listobs2[-1],drop=FALSE])
@@ -663,7 +663,7 @@ far.cv <- function(data, y, x, kn, ncv, cvcrit, center=TRUE, na.rm=TRUE,
                 colnames(pred[[y[i]]]) <-
                    (colnames(data2[[y[i]]])[c(FALSE,listobs.test)])[-nbobs.test]
             }
-            
+
             # Calculation of errors
             for (i in 1:ncrit)
             {

@@ -1,6 +1,7 @@
 \name{simul.far.wiener}
 \alias{simul.far.wiener}
 \title{ FAR(1) process simulation with Wiener noise }
+\encoding{utf-8}
 \description{
   Simulation of a FAR(1) process using a Wiener noise.
 }
@@ -12,22 +13,22 @@ d.rho=diag(c(0.45, 0.9, 0.34, 0.45)), cst1=0.05, m2=NULL)
   \item{m}{ Integer. Number of discretization points. }
   \item{n}{ Integer. Number of observations. }
   \item{d.rho}{ Numerical matrix. Expression of the first bloc of the
-    linear operator in the Karhunen-Loève basis. }
+    linear operator in the Karhunen-LoÃ¨ve basis. }
   \item{cst1}{ Numeric. Perturbation coefficient on the linear
     operator. }
-  \item{m2}{ Integer. Length of the Karhunen-Loève expansion (2\code{m}
+  \item{m2}{ Integer. Length of the Karhunen-LoÃ¨ve expansion (2\code{m}
     by default). }
 }
 \details{
   This function simulate a FAR(1) process with a Wiener noise. As for
-  the \code{\link{simul.wiener}}, the function use the Karhunen-Loève
+  the \code{\link{simul.wiener}}, the function use the Karhunen-LoÃ¨ve
   expansion of the noise. The FAR(1) process, defined by its linear
   operator (see \code{\link{far}} for more details), is computed in the
-  Karhunen-Loève basis then projected in the natural basis. The
+  Karhunen-LoÃ¨ve basis then projected in the natural basis. The
   parameters given in input (\code{d.rho} and \code{cst1}) are expressed
-  in the Karhunen-Loève basis.
+  in the Karhunen-LoÃ¨ve basis.
 
-  The linear operator, expressed in the Karhunen-Loève basis, is of the
+  The linear operator, expressed in the Karhunen-LoÃ¨ve basis, is of the
   form:
 
   \deqn{
@@ -63,13 +64,13 @@ d.rho=diag(c(0.45, 0.9, 0.34, 0.45)), cst1=0.05, m2=NULL)
   FAR(1) process of length \code{n} with \code{m} discretization
   points.
 }
-\references{ Pumo, B. (1992). \emph{Estimation et Prévision de
+\references{ Pumo, B. (1992). \emph{Estimation et PrÃ©vision de
   Processus Autoregressifs Fonctionnels. Applications aux
-  Processus à Temps Continu.}
+  Processus Ã  Temps Continu.}
   PhD Thesis, University Paris 6, Pierre et Marie Curie. }
 \author{ J. Damon }
 
-\seealso{ \code{\link{fdata}}, \code{\link{far}} , 
+\seealso{ \code{\link{fdata}}, \code{\link{far}} ,
     \code{\link{simul.far.wiener}}.  }
 
 \examples{

@@ -3,9 +3,10 @@
 \alias{plot.far}
 \alias{print.far}
 \title{ FARX(1) model estimation }
+\encoding{utf-8}
 \description{
-  Estimates the parameters of FAR(1) and FARX(1) processes 
-  (mean and autocorrelation operator)  
+  Estimates the parameters of FAR(1) and FARX(1) processes
+  (mean and autocorrelation operator)
 }
 \usage{
 far(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
@@ -26,7 +27,7 @@ far(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
 }
 \details{
   \bold{The models}
-  
+
   A Functional AutoRegressive of order 1 (\bold{FAR(1)}) process is, in a
   general way,  defined by the following equation:
 
@@ -83,7 +84,7 @@ far(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
   The \bold{joined} estimation is done by ``joining'' the variables
   into one and estimating a FAR model on the resulting variable. For
   instance, with the previous notations, the transformation is:
-  
+
   \deqn{T_{n}=\left(Y_{n},X_{n+1}\right)}{Tn=(Yn,Xn+1)}
 
   and \eqn{T_{n}}{Tn} is then a peculiar FAR(1) process. In such a case,
@@ -97,7 +98,8 @@ far(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
   (endogeneous and exogeneous).
 
   In both procedures, the endogeneous and exogeneous variables are
-  provided through the \code{y} and \code{x} options respectively.
+  provided through the \code{y} and \code{x} options respectively.
+
 
   \bold{Results}
 
@@ -118,14 +120,14 @@ far(data, y, x, kn, center=TRUE, na.rm=TRUE, joined=FALSE)
 \value{
   A \code{far} object, see details for more informations.
 }
-\references{ Besse, P. and Cardot, H. (1996). Approximation spline de la 
-   prévision d'un processus fonctionnel autorégressif d'ordre 1. 
-   \emph{Revue Canadienne de Statistique/Canadian Journal of Statistics}, 
+\references{ Besse, P. and Cardot, H. (1996). Approximation spline de la
+   prÃ©vision d'un processus fonctionnel autorÃ©gressif d'ordre 1.
+   \emph{Revue Canadienne de Statistique/Canadian Journal of Statistics},
    \bold{24}, 467--487.
-   
+
    Bosq, D. (2000) \emph{Linear Processes in Function Spaces: Theory and
    Applications}, (Lecture Notes in Statistics,
-   Vol. 149). New York: Springer-Verlag. 
+   Vol. 149). New York: Springer-Verlag.
 }
 \author{ J. Damon }
 

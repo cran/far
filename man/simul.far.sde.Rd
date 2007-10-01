@@ -1,6 +1,7 @@
 \name{simul.far.sde}
 \alias{simul.far.sde}
 \title{ FAR-SDE process simulation }
+\encoding{utf-8}
 \description{
   Simulation of a FAR process following an Stochastic
   Differential Equation
@@ -41,8 +42,8 @@ simul.far.sde(coef=c(0.4, 0.8), n=80, p=32, sigma=1)
   points.
 }
 \references{ Besse, P. and Cardot, H. (1996).
-  \emph{Approximation spline de la prévision d'un processus
-  fonctionnel autorégressif d'ordre 1}. 
+  \emph{Approximation spline de la prÃ©vision d'un processus
+  fonctionnel autorÃ©gressif d'ordre 1}.
   Revue Canadienne de Statistique/Canadian Journal of
   Statistics, \bold{24}, 467--487. }
 \author{ J. Damon }
