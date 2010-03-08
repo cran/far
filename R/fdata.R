@@ -4,7 +4,7 @@
 #   Description : 
 #       Functional Data class and methods.
 #   Version : 2.0.1
-#   Date : 2007-04-07
+#   Date : 2010-03-08
 #         ************************************************************
 #   Author : Julien Damon <julien.damon@free.fr>
 #   License : LGPL
@@ -136,6 +136,19 @@ as.fdata.list <- function(object,...,dates,name=NULL)
     return(object)
 }
 
+#  *****************************************************************************
+#   Title : as.fdata.array
+#         ************************************************************
+#   Description : 
+#       Method of 'fdata' constructor for 'array' object.
+#   Version : 0.1
+#   Date : 2010-03-08
+#  *****************************************************************************
+as.fdata.array <- function(object,...)
+{
+    # TODO : write a *real* version of that function
+    as.fdata.matrix(as.matrix(object),...)
+}
 #  *****************************************************************************
 #   Title : as.fdata.default
 #         ************************************************************

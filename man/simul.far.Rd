@@ -50,8 +50,8 @@ simul.far(m=12,
 
   \deqn{
     \left(\begin{array}[c]{lc}%
-    \code{d.rho} \tab 0 \cr%
-    0 \tab eps.rho%
+    \code{d.rho} & 0 \cr%
+    0 & eps.rho%
     \end{array}\right)%
   }{\code{d.rho} 0 \cr%
     0 eps.rho}
@@ -81,8 +81,8 @@ simul.far(m=12,
 
     \deqn{
     \left(\begin{array}[c]{lc}%
-    m_2 * \code{alpha} \tab 0 \cr%
-    0 \tab eps.alpha%
+    m_2 * \code{alpha} & 0 \cr%
+    0 & eps.alpha%
     \end{array}\right)%
   }{m2 * \code{alpha} 0 \cr%
     0 eps.alpha}

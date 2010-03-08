@@ -1,6 +1,7 @@
 useDynLib(far)
 
-export(as.fdata, as.fdata.default, as.fdata.list, as.fdata.matrix, 
+export(as.fdata, as.fdata.default, as.fdata.list, 
+       as.fdata.matrix, as.fdata.array,
        base.simul.far, BaseK2BaseC, coef.far, date.fdata, fapply, 
        far, far.cv, interpol.matrix, invgen, is.na.fdata, kerfon, 
        maxfdata, multplot, multplot.default, multplot.fdata, 
@@ -13,6 +14,7 @@ export(as.fdata, as.fdata.default, as.fdata.list, as.fdata.matrix,
 S3method(as.fdata, default)
 S3method(as.fdata, list)
 S3method(as.fdata, matrix)
+S3method(as.fdata, array)
 S3method(coef, far)
 S3method(is.na, fdata)
 S3method(multplot, default)

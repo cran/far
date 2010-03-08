@@ -29,7 +29,7 @@ interpol.matrix(n = 12, m = 24, tol = sqrt(.Machine$double.eps))
 }
 \value{
   A \code{n}x\code{m} matrix if they are integer, else a
-  \code{sum(n)}x\code{\sum(m)} matrix.
+  \code{sum(n)}x\code{sum(m)} matrix.
 }
 \author{J. Damon}
 

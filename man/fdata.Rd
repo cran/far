@@ -2,6 +2,7 @@
 \alias{as.fdata}
 \alias{as.fdata.default}
 \alias{as.fdata.matrix}
+\alias{as.fdata.array}
 \alias{as.fdata.list}
 \alias{fdata}
 \alias{print.fdata}

@@ -80,8 +80,8 @@ theoretical.coef(m=12,base=base.simul.far(24,5),
 
   \deqn{
     \left(\begin{array}[c]{lc}%
-    d.rho.mod \tab \code{d.a} \cr%
-    0 \tab d.rho.exo.mod%
+    d.rho.mod & \code{d.a} \cr%
+    0 & d.rho.exo.mod%
     \end{array}\right)%
   }{d.rho.mod \code{d.a} \cr%
     0 d.rho.exo.mod}
@@ -108,8 +108,8 @@ theoretical.coef(m=12,base=base.simul.far(24,5),
 
     \deqn{
     \left(\begin{array}[c]{lc}%
-    alpha.mod \tab alpha.conj.mod \cr%
-    t(alpha.conj.mod) \tab alpha.exo%
+    alpha.mod & alpha.conj.mod \cr%
+    t(alpha.conj.mod) & alpha.exo%
     \end{array}\right)%
   }{alpha.mod alpha.conj.mod \cr%
     t(alpha.conj.mod) alpha.exo}

@@ -1,4 +1,11 @@
 
+  2010-03-08 Version 0.6-3
+    *  Various fix in the documentation
+    *  Add of a dummy function as.fdata.array
+  
+  2007-10-02 Version 0.6-2
+    *  Various fixes
+
   2005-01-12 Version 0.6-1
     *  Modification of is.na.fdata in order to be conform to R 2.5.0
 
