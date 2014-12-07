@@ -5,7 +5,7 @@
   Computation of the prediction based on a functional kernel model
 }
 \usage{
-predict.kerfon(object, ..., newdata=NULL, label, na.rm=TRUE, positive=FALSE)
+\method{predict}{kerfon}(object, ..., newdata=NULL, label, na.rm=TRUE, positive=FALSE)
 }
 \arguments{
   \item{object}{ A \code{kerfon} object result of the \code{kerfon} function. }

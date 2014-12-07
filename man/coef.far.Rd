@@ -5,7 +5,7 @@
   'coef' method to extract the linear operator of a FAR model.
 }
 \usage{
-coef.far(object, ...)
+  \method{coef}{far}(object, ...)
 }
 \arguments{
   \item{object}{ An object of type \code{far}. }

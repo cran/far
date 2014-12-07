@@ -3,8 +3,8 @@
 #         ************************************************************
 #   Description : 
 #       Initialization of the library
-#   Version : 3.0
-#   Date : 2005-01-10
+#   Version : 3.1
+#   Date : 2014-12-07
 #         ************************************************************
 #   Author : Julien Damon <julien.damon@free.fr>
 #   License : LGPL
@@ -16,11 +16,11 @@
 #         ************************************************************
 #   Description : 
 #       Initialization of the library
-#   Version : 3.0
-#   Date : 2005-01-10
+#   Version : 3.1
+#   Date : 2014-12-07
 #  *****************************************************************************
 ".onAttach" <- function(lib, pkg)
 {
-    cat("far library : Modelization for Functional AutoRegressive processes\n")
-    cat("version 0.6-0 (2005-01-10)\n")
+  packageStartupMessage("far library : Modelization for Functional AutoRegressive processes\n")
+  packageStartupMessage("version 0.6-4 (2014-12-07)\n")
 }

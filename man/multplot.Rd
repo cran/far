@@ -10,7 +10,7 @@
 \usage{
 multplot(object, ...)
 
-multplot.fdata (object, date = 1, xval = NULL, name = NULL, legend = FALSE,
+\method{multplot}{fdata} (object, date = 1, xval = NULL, name = NULL, legend = FALSE,
     yleg, xlab = NULL, ylab = NULL, main = NULL, whole = FALSE, ...)
 }
 \arguments{

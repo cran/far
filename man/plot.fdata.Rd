@@ -5,7 +5,7 @@
   Plot Functional Data (more precisely \code{fdata} objects).
 }
 \usage{
-plot.fdata(x,...,date, xval, name, main, whole, separator)
+\method{plot}{fdata}(x,...,date, xval, name, main, whole, separator)
 }
 \arguments{
   \item{x}{ A \code{fdata} object. }

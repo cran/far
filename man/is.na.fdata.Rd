@@ -8,7 +8,7 @@
   are preserved.
 }
 \usage{
-is.na.fdata(x)
+\method{is.na}{fdata}(x)
 }
 \arguments{
   \item{x}{ A \code{fdata} object }

@@ -5,7 +5,7 @@
   Forecasting using FAR(1) or FARX(1) model
 }
 \usage{
-predict.far(object, ..., newdata=NULL, label, na.rm=TRUE, positive=FALSE)
+\method{predict}{far}(object, ..., newdata=NULL, label, na.rm=TRUE, positive=FALSE)
 }
 \arguments{
   \item{object}{ A \code{far} object result of the \code{far} function. }
